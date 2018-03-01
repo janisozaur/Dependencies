@@ -1,7 +1,7 @@
 REM Install upstream vcpkg
 
 git clone -q https://github.com/Microsoft/vcpkg.git
-xcopy /F triplets/* vcpkg/triplets/
+robocopy /v /fp triplets vcpkg/triplets/
 cd vcpkg
 call .\bootstrap-vcpkg.bat
 git pull

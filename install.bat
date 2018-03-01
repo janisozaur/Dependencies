@@ -1,37 +1,15 @@
-mkdir %VCPKG%
-pushd %VCPKG%
-  REM Install vcpkg
-  IF NOT EXIST %VCPKG%\.git (
-    git clone -q https://github.com/Microsoft/vcpkg.git .
-    call .\bootstrap-vcpkg.bat
-  )
-  git pull
+REM Install upstream vcpkg
 
-  REM Uninstall out of date packages so they are updated
-  .\vcpkg remove --outdated
+git clone -q https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+call .\bootstrap-vcpkg.bat
+git pull
 
-  REM Install x86 libraries
-  .\vcpkg install curl:x86-windows-static
-  .\vcpkg install discord-rpc:x86-windows-static
-  .\vcpkg install freetype:x86-windows-static
-  .\vcpkg install jansson:x86-windows-static
-  .\vcpkg install libpng:x86-windows-static
-  .\vcpkg install libzip:x86-windows-static
-  .\vcpkg install openssl:x86-windows-static
-  .\vcpkg install sdl2:x86-windows-static
-  .\vcpkg install speexdsp:x86-windows-static
-  .\vcpkg install zlib:x86-windows-static
+REM Uninstall out of date packages so they are updated
+.\vcpkg remove --outdated --recurse
 
-  REM Install x64 libraries
-  .\vcpkg install curl:x64-windows-static
-  .\vcpkg install discord-rpc:x64-windows-static
-  .\vcpkg install freetype:x64-windows-static
-  .\vcpkg install jansson:x64-windows-static
-  .\vcpkg install libpng:x64-windows-static
-  .\vcpkg install libzip:x64-windows-static
-  .\vcpkg install openssl:x64-windows-static
-  .\vcpkg install sdl2:x64-windows-static
-  .\vcpkg install speexdsp:x64-windows-static
-  .\vcpkg install zlib:x64-windows-static
+REM Install libraries
+.\vcpkg install breakpad:%TRIPLET% curl:%TRIPLET% discord-rpc:%TRIPLET% freetype:%TRIPLET% jansson:%TRIPLET% libpng:%TRIPLET% libzip:%TRIPLET% openssl:%TRIPLET% sdl2:%TRIPLET% speexdsp:%TRIPLET% zlib:%TRIPLET%
 
-popd
+REM Export libraries
+.\vcpkg export breakpad:%TRIPLET% curl:%TRIPLET% discord-rpc:%TRIPLET% freetype:%TRIPLET% jansson:%TRIPLET% libpng:%TRIPLET% libzip:%TRIPLET% openssl:%TRIPLET% sdl2:%TRIPLET% speexdsp:%TRIPLET% zlib:%TRIPLET% --zip --nuget

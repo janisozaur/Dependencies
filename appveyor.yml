@@ -18,7 +18,7 @@ install:
 build_script:
 - cmd: >-
     echo ok
-
+test: off
 artifacts:
 - path: '**\*.zip'
   name: Zip archive

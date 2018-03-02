@@ -5,20 +5,15 @@ cache:
 environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   matrix:
-    - TRIPLET: x86-uwp
-    - TRIPLET: x64-uwp
-    - TRIPLET: arm-uwp
     - TRIPLET: arm-windows
-    - TRIPLET: arm64-windows
-    - TRIPLET: arm64-uwp
-    - TRIPLET: x86-windows-static-winssl
-    - TRIPLET: x64-windows-static-winssl
 install:
 - cmd: install.bat
 build_script:
 - cmd: >-
     echo ok
 test: off
+on_failure:
+- cmd: type C:\projects\dependencies\vcpkg\buildtrees\libzip\install-arm-windows-dbg-out.log
 artifacts:
 - path: '**\*.zip'
   name: Zip archive

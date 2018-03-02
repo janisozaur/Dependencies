@@ -10,7 +10,4 @@ REM Uninstall out of date packages so they are updated
 .\vcpkg remove --outdated --recurse
 
 REM Install libraries
-.\vcpkg install curl:%TRIPLET% freetype:%TRIPLET% jansson:%TRIPLET% libpng:%TRIPLET% libzip:%TRIPLET% openssl:%TRIPLET% sdl2:%TRIPLET% speexdsp:%TRIPLET% zlib:%TRIPLET%
-
-REM Export libraries
-.\vcpkg export curl:%TRIPLET% freetype:%TRIPLET% jansson:%TRIPLET% libpng:%TRIPLET% libzip:%TRIPLET% openssl:%TRIPLET% sdl2:%TRIPLET% speexdsp:%TRIPLET% zlib:%TRIPLET% --zip --nuget
+.\vcpkg install libzip:%TRIPLET%

@@ -6,6 +6,7 @@ environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   matrix:
     - TRIPLET: arm-windows
+    - TRIPLET: arm64-windows
 install:
 - cmd: install.bat
 build_script:

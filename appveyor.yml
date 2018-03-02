@@ -17,5 +17,7 @@ on_failure:
 artifacts:
 - path: '**\*.zip'
   name: Zip archive
+- path: '**\*.7z'
+  name: 7Zip archive
 - path: '**\*.nupkg'
   name: NuGet archive

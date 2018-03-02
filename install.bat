@@ -11,3 +11,5 @@ REM Uninstall out of date packages so they are updated
 
 REM Install libraries
 .\vcpkg install libzip:%TRIPLET%
+
+.\vcpkg export libzip:%TRIPLET% --zip --nuget --7zip

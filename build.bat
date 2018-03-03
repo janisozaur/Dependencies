@@ -5,6 +5,7 @@ REM Install libraries
 
 if errorlevel 1 (
     echo failed with %errorlevel%
+    popd
     exit /b 0
 )
 

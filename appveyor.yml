@@ -19,11 +19,6 @@ build_script:
 - cmd: >-
     build.bat
 
-    if errorlevel 1 (
-        echo failed with %errorlevel%
-        exit /b 0
-    )
-
     package.bat
 test: off
 artifacts:

@@ -32,6 +32,10 @@ artifacts:
   name: NuGet vcpkg archive
 on_failure:
   cmd: >-
+    type C:\projects\dependencies\vcpkg\buildtrees\sdl2\config-arm-windows-out.log
+
+    appveyor PushArtifact C:\projects\dependencies\vcpkg\buildtrees\sdl2\install-arm-windows-dbg-out.log
+
     type C:\projects\dependencies\vcpkg\buildtrees\sdl2\install-arm-windows-dbg-out.log
-    
+
     appveyor PushArtifact C:\projects\dependencies\vcpkg\buildtrees\sdl2\install-arm-windows-dbg-out.log

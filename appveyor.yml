@@ -30,3 +30,8 @@ artifacts:
   name: Zip vcpkg archive
 - path: '**\vcpkg*.nupkg'
   name: NuGet vcpkg archive
+on_failure:
+  cmd: >-
+    type C:\projects\dependencies\vcpkg\buildtrees\curl\install-arm-windows-dbg-out.log
+    
+    appveyor PushArtifact C:\projects\dependencies\vcpkg\buildtrees\curl\install-arm-windows-dbg-out.log

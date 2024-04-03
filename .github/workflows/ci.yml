@@ -9,7 +9,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get the version
         id: get_version
         run: echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
@@ -25,7 +25,7 @@ jobs:
       - name: Output Release URL File
         run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
       - name: Save Release URL File for publish
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: release_url
           path: release_url.txt
@@ -47,7 +47,7 @@ jobs:
             vcpkgPackages: 'benchmark discord-rpc freetype gtest libpng libzip[core] nlohmann-json openal-soft sdl2 speexdsp zlib libflac libogg libvorbis'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get the version
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
@@ -66,7 +66,7 @@ jobs:
           7z a -tzip -mx9 -mtc=off ..\openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip "*"
           popd
       - name: Upload zip as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
           path: ${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}\\installed\\openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
@@ -100,7 +100,7 @@ jobs:
     if: always()
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get the version
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV

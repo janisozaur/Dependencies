@@ -57,6 +57,7 @@ jobs:
           VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
         with:
           vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_HASH }}'
+          runVcpkgInstall: true
       - name: Zip stuff
         run: |
           pushd ${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}\\installed\\${{ matrix.triplet }}

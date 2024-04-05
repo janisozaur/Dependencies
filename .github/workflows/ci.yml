@@ -97,19 +97,29 @@ jobs:
     runs-on: macos-latest
     needs: createrelease
     if: always()
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - triplet: arm64-osx-openrct2
+          - triplet: x64-osx-openrct2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Get the version
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+      - uses: lukka/get-cmake@latest
       - name: Install vcpkg and packages
-        id: macos_build
-        shell: bash
-        run: |
-          export VCPKG_COMMIT_HASH='${{ env.VCPKG_COMMIT_HASH }}'
-          brew install automake autoconf-archive
-          ./macos_build.sh
+        uses: lukka/run-vcpkg@v11
+        id: runvcpkg
+        env:
+          VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
+          VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
+        with:
+          vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_HASH }}'
+          runVcpkgInstall: true
+          runVcpkgFormatString: '[`install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--overlay-triplets=.`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]'
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v2
         with:

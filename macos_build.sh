@@ -3,7 +3,7 @@
 # exit on error
 set -e
 
-pip install --user pyyaml==5.4.1
+pip install --user pyyaml==6.0.1
 
 git clone -q https://github.com/Microsoft/vcpkg.git
 

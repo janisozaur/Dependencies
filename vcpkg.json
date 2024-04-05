@@ -1,0 +1,31 @@
+{
+    "name": "OpenRCT2-Dependencies",
+    "version-string": "11",
+    "description": "Dependencies for OpenRCT2",
+    "dependencies": [
+        "benchmark",
+        "crashpad",
+        "discord-rpc",
+        "freetype",
+        {
+            "$explanation": "fribidi is disabled on arm due to https://github.com/microsoft/vcpkg/issues/11248 [fribidi] Fribidi doesn't cross-compile on x86-64 to target arm/arm64",
+            "name": "fribidi",
+            "platform": "!arm"
+        },
+        "gtest",
+        "libflac",
+        "libogg",
+        "libpng",
+        "libvorbis",
+        {
+            "name": "libzip",
+            "default-features": false,
+            "features": [ "core" ]
+        },
+        "nlohmann-json",
+        "openal-soft",
+        "sdl2",
+        "speexdsp",
+        "zlib"
+    ]
+}

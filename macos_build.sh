@@ -18,9 +18,9 @@ vcpkg/bootstrap-vcpkg.sh
 
 ARM_TRIPLET="--overlay-triplets=. --triplet=arm64-osx-openrct2"
 X64_TRIPLET="--overlay-triplets=. --triplet=x64-osx-openrct2"
-LIBRARIES="libpng freetype openssl icu[core,tools] libzip[core] nlohmann-json openal-soft sdl2 speexdsp discord-rpc gtest libflac libogg libvorbis"
-vcpkg/vcpkg install ${=ARM_TRIPLET} ${=LIBRARIES}
-vcpkg/vcpkg install ${=X64_TRIPLET} ${=LIBRARIES}
+
+vcpkg/vcpkg install ${=ARM_TRIPLET}
+vcpkg/vcpkg install ${=X64_TRIPLET}
 
 rsync -ah vcpkg/installed/x64-osx-openrct2/* universal-osx-openrct2
 for lib in vcpkg/installed/x64-osx-openrct2/lib/*.dylib; do

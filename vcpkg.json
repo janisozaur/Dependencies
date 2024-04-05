@@ -13,6 +13,11 @@
             "platform": "!arm"
         },
         "gtest",
+        {
+            "name": "icu",
+            "features": [ "tools" ],
+            "platform": "!windows"
+        },
         "libflac",
         "libogg",
         "libpng",
@@ -23,6 +28,10 @@
         },
         "nlohmann-json",
         "openal-soft",
+        {
+            "name": "openssl",
+            "platform": "!windows"
+        },
         "sdl2",
         "speexdsp",
         "zlib"

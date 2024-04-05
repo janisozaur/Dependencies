@@ -92,7 +92,7 @@ jobs:
           asset_path: ${{ github.workspace }}/vcpkg/installed/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
           asset_name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
           asset_content_type: application/zip
-  macos:
+  macos-build:
     name: macOS
     runs-on: macos-latest
     needs: createrelease
@@ -124,11 +124,26 @@ jobs:
           vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_HASH }}'
           runVcpkgInstall: true
           runVcpkgFormatString: '[`install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--overlay-triplets=.`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]'
+      - name: Zip stuff
+        run: |
+          pushd ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
+          zip -rXy ../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-macos-dylibs.zip * -x '*/.*'
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: openrct2-libs-v${{ env.version }}-universal-macos-dylibs.zip
-          path: openrct2-libs-v${{ env.version }}-universal-macos-dylibs.zip
+          name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-macos-dylibs.zip
+          path: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-macos-dylibs.zip
+
+  macos-package:
+    name: macOS package universal library
+    runs-on: macos-latest
+    needs: macos-build
+    if: always()
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: openrct2-libs-v*-macos-dylibs.zip
       - name: Load Release URL File from release job
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/download-artifact@v4

@@ -3,25 +3,6 @@
 # exit on error
 set -e
 
-pip install --user pyyaml==6.0.1
-
-git clone -q https://github.com/Microsoft/vcpkg.git
-
-if [ -v VCPKG_COMMIT_HASH ]; then
-  echo "Using pinned vcpkg commit: ${VCPKG_COMMIT_HASH}"
-  pushd vcpkg
-  git checkout -q $VCPKG_COMMIT_HASH
-  popd
-fi
-
-vcpkg/bootstrap-vcpkg.sh
-
-ARM_TRIPLET="--overlay-triplets=. --triplet=arm64-osx-openrct2"
-X64_TRIPLET="--overlay-triplets=. --triplet=x64-osx-openrct2"
-
-vcpkg/vcpkg install ${=ARM_TRIPLET}
-vcpkg/vcpkg install ${=X64_TRIPLET}
-
 rsync -ah vcpkg/installed/x64-osx-openrct2/* universal-osx-openrct2
 for lib in vcpkg/installed/x64-osx-openrct2/lib/*.dylib; do
     if [ -f "$lib" ] && [ ! -L $lib ]; then

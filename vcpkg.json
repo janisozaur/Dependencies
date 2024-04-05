@@ -19,8 +19,7 @@
         "libvorbis",
         {
             "name": "libzip",
-            "default-features": false,
-            "features": [ "core" ]
+            "default-features": false
         },
         "nlohmann-json",
         "openal-soft",

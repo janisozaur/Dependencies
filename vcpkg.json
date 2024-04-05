@@ -4,7 +4,10 @@
     "description": "Dependencies for OpenRCT2",
     "dependencies": [
         "benchmark",
-        "crashpad",
+        {
+            "name": "crashpad",
+            "platform": "windows"
+        },
         "discord-rpc",
         "freetype",
         {

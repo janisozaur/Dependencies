@@ -5,8 +5,8 @@
     "dependencies": [
         "benchmark",
         {
-            "name": "crashpad",
-            "platform": "windows"
+            "name": "breakpad",
+            "platform": "windows & !arm"
         },
         "discord-rpc",
         "freetype",

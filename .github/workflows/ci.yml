@@ -153,8 +153,8 @@ jobs:
         run: |
           set -x
           ls -l
-          unzip -o openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
-          unzip -o openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
+          unzip -qo openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
+          unzip -qo openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
           ls -l
           find . -name '*libfribidi*dylib*'
           ./macos_build.sh

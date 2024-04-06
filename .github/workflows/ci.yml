@@ -113,7 +113,6 @@ jobs:
       - name: Install prerequisites
         shell: bash
         run: |
-          unzip --help
           brew install automake autoconf-archive
       - uses: lukka/get-cmake@latest
       - name: Install vcpkg and packages
@@ -151,12 +150,8 @@ jobs:
           pattern: openrct2-libs-v*-macos-dylibs.zip
       - name: Create Universal Library
         run: |
-          set -x
-          ls -l
           unzip -qo openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
           unzip -qo openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
-          ls -l
-          find . -name '*libfribidi*dylib*'
           ./macos_build.sh
       - name: Load Release URL File from release job
         if: startsWith(github.ref, 'refs/tags/v')

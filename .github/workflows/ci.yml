@@ -153,7 +153,8 @@ jobs:
         run: |
           set -x
           ls -l
-          find . -type f -name 'openrct2-libs-v*-macos-dylibs.zip' | xargs -n1 unzip
+          unzip -o openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
+          unzip -o openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
           ls -l
           ./macos_build.sh
       - name: Load Release URL File from release job

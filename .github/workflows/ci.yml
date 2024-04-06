@@ -104,6 +104,7 @@ jobs:
           - triplet: arm64-osx-openrct2
           - triplet: x64-osx-openrct2
     steps:
+      # needed for vcpkg.json
       - name: Checkout
         uses: actions/checkout@v4
       - name: Get the version
@@ -123,6 +124,7 @@ jobs:
         with:
           vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_HASH }}'
           runVcpkgInstall: true
+          # needed for --overlay-triplets option
           runVcpkgFormatString: '[`install`, `--recurse`, `--clean-after-build`, `--x-install-root`, `$[env.VCPKG_INSTALLED_DIR]`, `--overlay-triplets=.`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`]'
       - name: Zip stuff
         run: |
@@ -149,11 +151,9 @@ jobs:
       - name: Create Universal Library
         run: |
           set -x
-          pwd
-          echo ${{ github.workspace }}
           ls -l
-          ls -l ../
-          ls -l ../../
+          ls -1 openrct2-libs-v*-macos-dylibs.zip | xargs -n1 unzip
+          ls -l
           ./macos_build.sh
       - name: Load Release URL File from release job
         if: startsWith(github.ref, 'refs/tags/v')

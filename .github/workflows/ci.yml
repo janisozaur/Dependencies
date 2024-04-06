@@ -113,6 +113,7 @@ jobs:
       - name: Install prerequisites
         shell: bash
         run: |
+          unzip --help
           brew install automake autoconf-archive
       - uses: lukka/get-cmake@latest
       - name: Install vcpkg and packages

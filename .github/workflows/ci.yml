@@ -61,8 +61,8 @@ jobs:
           runVcpkgInstall: true
       - name: Zip stuff
         run: |
-          pushd ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
-          7z a -tzip -mx9 -mtc=off ..\openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip "*"
+          pushd ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}/${{ matrix.triplet }}
+          7z a -tzip -mx9 -mtc=off ../../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip "*"
           popd
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4

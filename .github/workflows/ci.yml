@@ -112,15 +112,15 @@ jobs:
           wget -q ${{ matrix.triplet }}
           unzip -q openrct2-libs-v*.zip
           #set -x
-          find . -name 'libfreetype.6.dylib' | sort
-          for dylib in $(find . -name 'libfreetype.6.dylib' | sort); do
-            echo otool_pre:
-            otool -L $dylib | grep -A5 -B10 brotli
+          find . -name '*.dylib' | sort
+          for dylib in $(find . -name '*.dylib' | sort); do
+            echo otool_pre $dylib:
+            otool -L $dylib | grep -A5 -B10 /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/
             echo install_name_tool_pre:
             install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $dylib
             install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1sdfsdfsfs.dylib "@rpath/libbrosdfsdfstlidec.1.dylib" $dylib
-            echo otool_post:
-            otool -L $dylib | grep -A5 -B10 brotli
+            echo otool_post $dylib:
+            otool -L $dylib | grep -A5 -B10 /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/
           done
   #         brew install automake autoconf-archive
   #     - uses: lukka/get-cmake@latest

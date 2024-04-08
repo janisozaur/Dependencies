@@ -19,6 +19,8 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
       fi
       lipo -create "x64-osx-openrct2/lib/$lib_filename" "arm64-osx-openrct2/lib/$lib_filename" -output "universal-osx-openrct2/lib/$lib_filename"
+      # Fix LC_ID_DYLIB to use rpath
+      install_name_tool -id "@rpath/$lib_filename" "x64-osx-openrct2/lib/$lib_filename"
     fi
 done
 

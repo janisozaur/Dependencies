@@ -109,21 +109,6 @@ jobs:
       - name: Install prerequisites
         shell: bash
         run: |
-          wget -q ${{ matrix.triplet }}
-          unzip -q openrct2-libs-v*.zip
-          #set -x
-          find . -name '*.dylib' | sort
-          for dylib in $(find . -name '*.dylib' | sort); do
-            echo otool_pre $dylib:
-            if otool -L $dylib | grep -q /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/; then
-              echo install_name_tool_pre:
-              install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $dylib
-              install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $dylib
-              install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlienc.1.dylib "@rpath/libbrotlienc.1.dylib" $dylib
-              echo otool_post $dylib:
-              otool -L $dylib | grep -A5 -B10 /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/
-            fi
-          done
   #         brew install automake autoconf-archive
   #     - uses: lukka/get-cmake@latest
   #     - name: Install vcpkg and packages

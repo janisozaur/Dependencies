@@ -34,11 +34,11 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         # Some packages (currently only brotli) have absolute paths in the LC_LOAD_DYLIB command.
         # This is not supported by the universal build and needs to be changes to @rpath.
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work
+        otool -L $lib | grep /Users/runner/work || true
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work
+        otool -L $lib | grep /Users/runner/work || true
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlienc.1.dylib "@rpath/libbrotlienc.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work
+        otool -L $lib | grep /Users/runner/work || true
         # Once done, check that it was the only absolute path in the LC_LOAD_DYLIB command.
         set +x
         if otool -L $lib | grep -q /Users/runner/work; then

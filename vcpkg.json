@@ -32,7 +32,7 @@
         "nlohmann-json",
         "openal-soft",
         {
-            "name": "openssl",
+            "name": "mbedtls",
             "platform": "!windows"
         },
         "sdl2",

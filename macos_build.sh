@@ -19,6 +19,10 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
       fi
+      if [ "$lib_name" = "libbrotlicommon" ]; then
+        echo Fixing libbrotlicommon LC_ID_DYLIB
+        install_name_tool -id "@rpath/libbrotlicommon.1.dylib" "x64-osx-openrct2/lib/$lib_filename"
+      fi
       if otool -L $lib | grep -q /Users/runner/work/; then
         echo Fixing absolute paths in $lib
         if otool -L $lib | grep -q /Users/runner/work; then

@@ -19,8 +19,8 @@ jobs:
       #     pattern: openrct2-libs-v*-macos-dylibs.zip
       - name: Create Universal Library
         run: |
-          wget https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-arm64-osx-openrct2-macos-dylibs.zip
-          wget https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-x64-osx-openrct2-macos-dylibs.zip
+          wget -q https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-arm64-osx-openrct2-macos-dylibs.zip
+          wget -q https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-x64-osx-openrct2-macos-dylibs.zip
           unzip -qo openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
           unzip -qo openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
           ./macos_build.sh

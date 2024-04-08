@@ -32,7 +32,7 @@
         "nlohmann-json",
         "openal-soft",
         {
-            "name": "boringssl",
+            "name": "libressl",
             "platform": "!windows"
         },
         "sdl2",

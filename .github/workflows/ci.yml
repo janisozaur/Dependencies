@@ -21,8 +21,8 @@ jobs:
         run: |
           wget -q https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-arm64-osx-openrct2-macos-dylibs.zip
           wget -q https://github.com/janisozaur/Dependencies/releases/download/test-release-20240408/openrct2-libs-v-x64-osx-openrct2-macos-dylibs.zip
-          unzip -qo openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
-          unzip -qo openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
+          unzip -qo openrct2-libs-v${{ env.version }}-arm64-osx-openrct2-macos-dylibs.zip
+          unzip -qo openrct2-libs-v${{ env.version }}-x64-osx-openrct2-macos-dylibs.zip
           ./macos_build.sh
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4

@@ -31,6 +31,10 @@
         },
         "nlohmann-json",
         "openal-soft",
+        {
+            "name": "libressl",
+            "platform": "!windows"
+        },
         "sdl2",
         "speexdsp",
         "zlib"

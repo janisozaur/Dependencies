@@ -100,8 +100,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - triplet: arm64-osx-openrct2
-          - triplet: x64-osx-openrct2
+          - triplet: https://github.com/janisozaur/Dependencies/releases/download/v999-vcpkg-manifest-mode-v10-libressl/openrct2-libs-v999-vcpkg-manifest-mode-v10-libressl-universal-macos-dylibs.zip
+          - triplet: https://github.com/OpenRCT2/Dependencies/releases/download/v34/openrct2-libs-v34-universal-macos-dylibs.zip
     steps:
       # needed for vcpkg.json
       - name: Checkout
@@ -109,11 +109,11 @@ jobs:
       - name: Install prerequisites
         shell: bash
         run: |
-          wget https://github.com/janisozaur/Dependencies/releases/download/v999-vcpkg-manifest-mode-v10-libressl/openrct2-libs-v999-vcpkg-manifest-mode-v10-libressl-universal-macos-dylibs.zip
-          unzip openrct2-libs-v999-vcpkg-manifest-mode-v10-libressl-universal-macos-dylibs.zip
+          wget ${{ matrix.triplet }}
+          unzip openrct2-libs-v*.zip
           set -x
-          find . -name '*.dylib'
-          for dylib in $(find . -name '*.dylib'); do
+          find . -name '*.dylib' | sort
+          for dylib in $(find . -name '*.dylib' | sort); do
             otool -l $dylib
             otool -L $dylib
           done

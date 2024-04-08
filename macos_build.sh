@@ -20,27 +20,20 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
       fi
       if [[ "$lib_name" = libbrotli* ]]; then
+        # Brotli uses full path for LC_ID_DYLIB, which breaks when trying to fix up LC_LOAD_DYLIB in next step.
+        # Fix the LC_ID_DYLIB first before fixing up the LC_LOAD_DYLIB.
         echo Fixing $lib_name LC_ID_DYLIB
-        echo   \> install_name_tool -id "@rpath/$lib_filename" "x64-osx-openrct2/lib/$lib_filename"
         install_name_tool -id "@rpath/$lib_filename" "x64-osx-openrct2/lib/$lib_filename"
       fi
       if otool -L $lib | grep -q /Users/runner/work/; then
-        echo Fixing absolute paths in $lib
-        if otool -L $lib | grep -q /Users/runner/work; then
-          echo "Absolute paths found in $lib. Load commands:"
-          otool -L $lib
-        fi
-        set -x
+        echo "Absolute paths found in $lib. Load commands:"
+        otool -L $lib
         # Some packages (currently only brotli) have absolute paths in the LC_LOAD_DYLIB command.
         # This is not supported by the universal build and needs to be changes to @rpath.
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work || true
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work || true
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlienc.1.dylib "@rpath/libbrotlienc.1.dylib" $lib
-        otool -L $lib | grep /Users/runner/work || true
         # Once done, check that it was the only absolute path in the LC_LOAD_DYLIB command.
-        set +x
         if otool -L $lib | grep -q /Users/runner/work; then
           echo "Absolute paths still exist in $lib. Load commands:"
           otool -L $lib

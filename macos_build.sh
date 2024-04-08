@@ -13,14 +13,27 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         # libzip embeds the full rpath in LC_RPATH
         # they will be different for arm64 and x86_64
         # this will cause issues, and is unnecessary
+        echo Fixing libzip rpath
         install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename"
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/x64-osx-openrct2/x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename"
         install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
       fi
+      if otool -L $dylib | grep -q /Users/runner/work/; then
+        echo Fixing absolute paths in $dylib
+        # Some packages (currently only brotli) have absolute paths in the LC_LOAD_DYLIB command.
+        # This is not supported by the universal build and needs to be changes to @rpath.
+        install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $dylib
+        install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $dylib
+        install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlienc.1.dylib "@rpath/libbrotlienc.1.dylib" $dylib
+        # Once done, check that it was the only absolute path in the LC_LOAD_DYLIB command.
+        if otool -L $dylib | grep -q /Users/runner/work; then
+          echo "Absolute paths still exist in $dylib. Load commands:"
+          otool -L $dylib
+          exit 1
+        fi
+      fi
       lipo -create "x64-osx-openrct2/lib/$lib_filename" "arm64-osx-openrct2/lib/$lib_filename" -output "universal-osx-openrct2/lib/$lib_filename"
-      # Fix LC_ID_DYLIB to use rpath
-      install_name_tool -id "@rpath/$lib_filename" "x64-osx-openrct2/lib/$lib_filename"
     fi
 done
 

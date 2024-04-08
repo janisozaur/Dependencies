@@ -95,8 +95,8 @@ jobs:
   macos-build:
     name: macOS
     runs-on: macos-latest
-    if: always()
     needs: createrelease
+    if: always()
     strategy:
       fail-fast: false
       matrix:
@@ -107,6 +107,9 @@ jobs:
       # needed for vcpkg.json
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get the version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
       - name: Install prerequisites
         shell: bash
         run: |
@@ -141,9 +144,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Get the version
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: echo "version=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
       - name: Download All Artifacts
         uses: actions/download-artifact@v4
         with:

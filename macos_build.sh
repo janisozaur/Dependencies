@@ -13,15 +13,15 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         echo otool -l $lib:
         otool -l $lib
       fi
-      if [[ "$lib_name" = "libzip" ]]; then
+      if [[ "$lib_name" = "libzip" || $lib_name = libicu* ]]; then
         # libzip embeds the full rpath in LC_RPATH
         # they will be different for arm64 and x86_64
         # this will cause issues, and is unnecessary
         echo Fixing $lib_name rpath
-        install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename"
-        install_name_tool -delete_rpath `pwd`"/vcpkg/installed/x64-osx-openrct2/x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename"
-        install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
-        install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
+        install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename" || echo No `pwd`"/vcpkg/packages/${lib_name}_x64-osx-openrct2/lib" in $lib
+        install_name_tool -delete_rpath `pwd`"/vcpkg/installed/x64-osx-openrct2/x64-osx-openrct2/lib" "x64-osx-openrct2/lib/$lib_filename" || echo No `pwd`"/vcpkg/installed/x64-osx-openrct2/x64-osx-openrct2/lib" in $lib
+        install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename" || echo No `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" in $lib
+        install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename" || echo No `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" in $lib
       fi
       if [[ "$lib_name" = libbrotli* ]]; then
         # Brotli uses full path for LC_ID_DYLIB, which breaks when trying to fix up LC_LOAD_DYLIB in next step.
@@ -51,5 +51,5 @@ done
 (
   cd universal-osx-openrct2 &&
   zip -rXy ../openrct2-libs-v${version}-universal-macos-dylibs.zip * -x '*/.*'
-  sha1sum ../openrct2-libs-v${version}-universal-macos-dylibs.zip
+  shasum ../openrct2-libs-v${version}-universal-macos-dylibs.zip
 )

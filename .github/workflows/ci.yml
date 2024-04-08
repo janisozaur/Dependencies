@@ -117,7 +117,8 @@ jobs:
             echo otool_pre:
             otool -L $dylib | grep -A5 -B10 brotli
             echo install_name_tool_pre:
-            install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib libbrotlicommon.1.dylib $dylib
+            install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $dylib
+            install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $dylib
             echo otool_post:
             otool -L $dylib | grep -A5 -B10 brotli
           done

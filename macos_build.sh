@@ -19,17 +19,17 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
         install_name_tool -delete_rpath `pwd`"/vcpkg/packages/${lib_name}_arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
         install_name_tool -delete_rpath `pwd`"/vcpkg/installed/arm64-osx-openrct2/arm64-osx-openrct2/lib" "arm64-osx-openrct2/lib/$lib_filename"
       fi
-      if otool -L $dylib | grep -q /Users/runner/work/; then
-        echo Fixing absolute paths in $dylib
+      if otool -L $lib | grep -q /Users/runner/work/; then
+        echo Fixing absolute paths in $lib
         # Some packages (currently only brotli) have absolute paths in the LC_LOAD_DYLIB command.
         # This is not supported by the universal build and needs to be changes to @rpath.
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlicommon.1.dylib "@rpath/libbrotlicommon.1.dylib" $dylib
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlidec.1.dylib "@rpath/libbrotlidec.1.dylib" $dylib
         install_name_tool -change /Users/runner/work/Dependencies/Dependencies/vcpkg/packages/brotli_x64-osx-openrct2/lib/libbrotlienc.1.dylib "@rpath/libbrotlienc.1.dylib" $dylib
         # Once done, check that it was the only absolute path in the LC_LOAD_DYLIB command.
-        if otool -L $dylib | grep -q /Users/runner/work; then
-          echo "Absolute paths still exist in $dylib. Load commands:"
-          otool -L $dylib
+        if otool -L $lib | grep -q /Users/runner/work; then
+          echo "Absolute paths still exist in $lib. Load commands:"
+          otool -L $lib
           exit 1
         fi
       fi

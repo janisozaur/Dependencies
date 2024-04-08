@@ -9,7 +9,11 @@ for lib in x64-osx-openrct2/lib/*.dylib; do
       lib_filename=$(basename "$lib")
       lib_name=$(echo $lib_filename | cut -d'.' -f 1)
       echo "Creating universal (fat) $lib_name"
-      if [[ "$lib_name" = "libzip" || $lib_name = libicu* ]]; then
+      if [[ $lib_name = libicu* ]]; then
+        echo otool -l $lib:
+        otool -l $lib
+      fi
+      if [[ "$lib_name" = "libzip" ]]; then
         # libzip embeds the full rpath in LC_RPATH
         # they will be different for arm64 and x86_64
         # this will cause issues, and is unnecessary

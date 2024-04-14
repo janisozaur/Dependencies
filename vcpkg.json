@@ -5,7 +5,7 @@
     "dependencies": [
         "benchmark",
         {
-            "name": "breakpad",
+            "name": "crashpad",
             "platform": "windows & !arm"
         },
         "discord-rpc",
@@ -24,6 +24,10 @@
         "libflac",
         "libogg",
         "libpng",
+        {
+            "name": "libressl",
+            "platform": "!windows"
+        },
         "libvorbis",
         {
             "name": "libzip",
@@ -31,10 +35,6 @@
         },
         "nlohmann-json",
         "openal-soft",
-        {
-            "name": "libressl",
-            "platform": "!windows"
-        },
         "sdl2",
         "speexdsp",
         "zlib"

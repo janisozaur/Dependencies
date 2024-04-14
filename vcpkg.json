@@ -6,7 +6,7 @@
         "benchmark",
         {
             "name": "crashpad",
-            "platform": "windows & !arm"
+            "platform": "windows"
         },
         "discord-rpc",
         "freetype",

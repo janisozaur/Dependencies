@@ -3,7 +3,6 @@
     "version-string": "11",
     "description": "Dependencies for OpenRCT2",
     "dependencies": [
-        "benchmark",
         {
             "name": "breakpad",
             "platform": "windows & !arm"

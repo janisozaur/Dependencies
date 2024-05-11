@@ -42,7 +42,7 @@
     "overrides": [
         {
             "name": "sdl2",
-            "version": "2.28.5#1"
+            "version": "2.30.0"
         }
       ]
 }

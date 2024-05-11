@@ -42,7 +42,7 @@
     "overrides": [
         {
             "name": "sdl2",
-            "version": "2.28.4"
+            "version": "2.28.4#1"
         }
     ],
     "builtin-baseline":"11ed79186fe850bd3a98cfbf1854514d2b3070a2"

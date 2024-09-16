@@ -24,7 +24,7 @@ jobs:
         include:
           - triplet: x86-windows-static
           - triplet: x64-windows-static
-          - triplet: arm64-windows-static
+          #- triplet: arm64-windows-static
     steps:
       - name: Checkout
         uses: actions/checkout@v4

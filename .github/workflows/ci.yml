@@ -52,7 +52,7 @@ jobs:
         run: |
           pushd ${{ github.workspace }}
           sha1sum openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
-          ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}/vcpkg list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
+          vcpkg/vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
           popd
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4

@@ -63,10 +63,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
+          path: ${{ github.workspace }}/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
       - name: Upload vcpkg list as artifact
         uses: actions/upload-artifact@v4
         with:
           name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
+          path: ${{ github.workspace }}/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
   macos-build:
     name: macOS
     runs-on: macos-12

@@ -48,26 +48,16 @@ jobs:
           pushd ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}/${{ matrix.triplet }}
           7z a -tzip -mx9 -mtc=off ../../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip "*"
           popd
-      - name: Add checksum and vcpkg list to release notes
-        env:
-          VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
-          VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
+      - name: Export checksum info for release notes
         run: |
           pushd ${{ github.workspace }}/vcpkg
           sha1sum installed/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > ../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
-          vcpkg.exe list
-          vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
-          vcpkg.exe export --zip --output-dir ${{ github.workspace }}
           popd
-      - name: Upload zip as artifact
+      - name: Upload zipped libraries as artifact
         uses: actions/upload-artifact@v4
         with:
           name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
           path: ${{ github.workspace }}/vcpkg/installed/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
-      - name: Upload export zip as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.workspace }}/*.zip
       - name: Upload sha1 as artifact
         uses: actions/upload-artifact@v4
         with:

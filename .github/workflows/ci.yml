@@ -49,6 +49,9 @@ jobs:
           7z a -tzip -mx9 -mtc=off ../../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip "*"
           popd
       - name: Add checksum and vcpkg list to release notes
+        env:
+          VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
+          VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
         run: |
           pushd ${{ github.workspace }}
           sha1sum openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1

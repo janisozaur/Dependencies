@@ -52,7 +52,7 @@ jobs:
         run: |
           pushd ${{ github.workspace }}
           sha1sum openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
-          vcpkg/vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
+          vcpkg/vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
           popd
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4
@@ -67,8 +67,8 @@ jobs:
       - name: Upload vcpkg list as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
-          path: ${{ github.workspace }}/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.txt
+          name: openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
+          path: ${{ github.workspace }}/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
   macos-build:
     name: macOS
     runs-on: macos-12
@@ -160,7 +160,7 @@ jobs:
       - name: Concatenate vcpkg lists
         run: |
           pushd ${{ github.workspace }}
-          cat openrct2-libs-v${{ env.version }}-*.txt > openrct2-libs-v${{ env.version }}-vcpkg-lists.txt
+          cat openrct2-libs-v${{ env.version }}-*-vcpkg-list.txt > openrct2-libs-v${{ env.version }}-vcpkg-lists.txt
           popd
       - name: Create release notes
         run: |

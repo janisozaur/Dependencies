@@ -156,11 +156,6 @@ jobs:
           pushd ${{ github.workspace }}
           sha1sum openrct2-libs-v${{ env.version }}-*.zip > openrct2-libs-v${{ env.version }}-sha1sums.txt
           popd
-      - name: Concatenate vcpkg lists
-        run: |
-          pushd ${{ github.workspace }}
-          cat openrct2-libs-v${{ env.version }}-*-vcpkg-list.txt > openrct2-libs-v${{ env.version }}-vcpkg-lists.txt
-          popd
       - name: Create release notes
         run: |
           echo "Release notes for version ${{ env.version }}" > release_notes.txt
@@ -168,13 +163,10 @@ jobs:
           echo "SHA1 checksums:" >> release_notes.txt
           cat openrct2-libs-v${{ env.version }}-sha1sums.txt >> release_notes.txt
           echo "" >> release_notes.txt
-          echo "VCPKG lists:" >> release_notes.txt
-          cat openrct2-libs-v${{ env.version }}-vcpkg-lists.txt >> release_notes.txt
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             openrct2-libs-v${{ env.version }}-sha1sums.txt
-            openrct2-libs-v${{ env.version }}-vcpkg-lists.txt
             openrct2-libs-v${{ env.version }}-*.zip
           body_path: release_notes.txt

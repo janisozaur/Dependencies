@@ -53,11 +53,11 @@ jobs:
           VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
           VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg/installed/${{ matrix.triplet }}
         run: |
-          pushd ${{ github.workspace }}
-          sha1sum ${{ github.workspace }}/vcpkg/installed/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
-          vcpkg/vcpkg.exe list
-          vcpkg/vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
-          vcpkg/vcpkg.exe export --zip openrct2-export-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
+          pushd ${{ github.workspace }}/vcpkg
+          sha1sum installed/openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip > ../openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}.zip.sha1
+          vcpkg.exe list
+          vcpkg.exe list > openrct2-libs-v${{ env.version }}-${{ matrix.triplet }}-vcpkg-list.txt
+          vcpkg.exe export --zip --output-dir ${{ github.workspace }}
           popd
       - name: Upload zip as artifact
         uses: actions/upload-artifact@v4
@@ -67,7 +67,7 @@ jobs:
       - name: Upload export zip as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: openrct2-export-libs-v${{ env.version }}-${{ matrix.triplet }}.zip
+          name: ${{ github.workspace }}/*.zip
       - name: Upload sha1 as artifact
         uses: actions/upload-artifact@v4
         with:

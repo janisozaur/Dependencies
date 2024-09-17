@@ -124,6 +124,8 @@ jobs:
         with:
           pattern: openrct2-libs-v*-macos-dylibs.zip
       - name: Create Universal Library
+        env:
+          version: ${{ needs.get_version.outputs.version }}
         run: |
           unzip -qo openrct2-libs-v${{ needs.get_version.outputs.version }}-arm64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ needs.get_version.outputs.version }}-arm64-osx-openrct2-macos-dylibs.zip
           unzip -qo openrct2-libs-v${{ needs.get_version.outputs.version }}-x64-osx-openrct2-macos-dylibs.zip/openrct2-libs-v${{ needs.get_version.outputs.version }}-x64-osx-openrct2-macos-dylibs.zip

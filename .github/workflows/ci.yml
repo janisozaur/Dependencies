@@ -18,10 +18,13 @@ jobs:
           TAG=${GITHUB_REF/refs\/tags\/v/}
           if [ -z "$TAG" ]; then
             # set version to sha1 of the commit
+            echo setting output to $(git rev-parse --short HEAD)
             echo "version=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           else
+            echo setting output to $TAG
             echo "version=$TAG" >> "$GITHUB_OUTPUT"
           fi
+          echo Output: \"$GITHUB_OUTPUT\"
   windows:
     name: Windows
     runs-on: windows-latest

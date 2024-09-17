@@ -156,7 +156,9 @@ jobs:
           echo "Release notes for version ${{ needs.get_version.outputs.version }}" > release_notes.txt
           echo "" >> release_notes.txt
           echo "SHA1 checksums:" >> release_notes.txt
+          echo "\`\`\`" >> release_notes.txt
           cat openrct2-libs-v${{ needs.get_version.outputs.version }}-sha1sums.txt >> release_notes.txt
+          echo "\`\`\`" >> release_notes.txt
           echo "" >> release_notes.txt
       - name: Create release
         uses: softprops/action-gh-release@v2

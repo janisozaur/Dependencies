@@ -20,6 +20,8 @@
         "libflac",
         "libogg",
         "libpng",
+	"libvpx",
+	"libyuv",
         "libvorbis",
         {
             "name": "libzip",

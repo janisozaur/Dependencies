@@ -3,52 +3,10 @@
     "version-string": "11",
     "description": "Dependencies for OpenRCT2",
     "dependencies": [
-        "benchmark",
-        {
-            "name": "breakpad",
-            "platform": "windows & !arm"
-        },
-        "discord-rpc",
-        "freetype",
-        "fribidi",
-        "gtest",
         {
             "name": "icu",
             "features": [ "tools" ],
             "platform": "!windows"
-        },
-        "libflac",
-        "libogg",
-        "libpng",
-	"libvpx",
-	"libyuv",
-        "libvorbis",
-        {
-            "name": "libzip",
-            "default-features": false
-        },
-        "nlohmann-json",
-        "openal-soft",
-        {
-            "name": "libressl",
-            "platform": "!windows"
-        },
-        "quickjs-ng",
-        "sdl2",
-        "speexdsp",
-        "zlib",
-        "zstd"
-    ],
-    "overrides": [
-        {
-            "name": "breakpad",
-            "version": "2022-07-12#5",
-            "$explanation": "https://github.com/OpenRCT2/OpenRCT2/issues/22003"
-        },
-        {
-            "name": "nlohmann-json",
-            "$explanation": "3.12.0 contains a major issue related to utf8 strings. Should be fixed when 3.12.1 releases",
-            "version": "3.11.3#1"
         }
     ],
     "builtin-baseline": "4334d8b4c8916018600212ab4dd4bbdc343065d1"

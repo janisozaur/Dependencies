@@ -88,7 +88,7 @@ jobs:
       - name: Install prerequisites
         shell: bash
         run: |
-          brew install automake autoconf-archive
+          brew install autoconf autoconf-archive automake libtool
       - uses: lukka/get-cmake@latest
       - name: Install vcpkg and packages
         uses: lukka/run-vcpkg@v11
